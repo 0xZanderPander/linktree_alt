@@ -286,11 +286,9 @@ export const siteConfig: SiteConfig = {
   // ============================================
   blog: {
     enabled: true,
-    // TODO: your Substack feed URL, e.g. "https://yourname.substack.com/feed"
-    feedUrl: "",
+    feedUrl: "https://teenageviolence.substack.com/feed",
     title: "Recent Writing",
-    // TODO: your Substack URL, e.g. "https://yourname.substack.com"
-    subscribeUrl: "",
+    subscribeUrl: "https://teenageviolence.substack.com",
   },
 
   // ============================================

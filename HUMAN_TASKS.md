@@ -20,10 +20,9 @@ Everything below is content or accounts only you can supply. The code is wired u
 - Also placeholder: `branding.websiteUrl` (`https://example.com`), `branding.email` (`hello@example.com`), `branding.copyrightYear` (`2024`)
 - File: `src/config/site.config.ts` → `socialLinks`
 
-## 4. Blog (Substack → Medium)
-- Once your Substack publication exists: its RSS feed URL (usually `https://yourname.substack.com/feed`) → `siteConfig.blog.feedUrl`
-- Your Substack URL → `siteConfig.blog.subscribeUrl`
-- Reminder: publishing to Substack is free unless you turn on paid subscriptions (10% Substack cut + Stripe fees only apply then). The linktree only links to Substack, per your call — Medium cross-posting happens on your end and doesn't need anything here.
+## 4. Blog (Substack)
+- Feed + subscribe URLs are set to `teenageviolence.substack.com` ✓ — the subscribe modal is now live.
+- REMAINING (code task, not content): `RecentBlogs.tsx` is still the template's **static placeholder** — it shows one dummy card with `href="#"` and ignores `blog.feedUrl`. To show real posts, swap in the dynamic RSS version from `docs/04-recent-blogs.md` (uses rss2json.com, no API key). Ask me to do this.
 
 ## 5. Music profile links
 - `siteConfig.music.profileLinks` (Spotify/Apple Music/SoundCloud/Bandcamp) — your overall artist-profile URLs on each platform, shown as a "listen on" row on `/music`. Currently all `#`.
