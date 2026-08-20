@@ -328,8 +328,7 @@ export const siteConfig: SiteConfig = {
   about: {
     heading: "about_",
     bio: [
-      "TODO: write your bio here.", // TODO
-      "TODO: second paragraph, if you want one.", // TODO
+      "Exploring for profit violence through culture, technology, art, drugs, media, power & other perfectly normal things <3",
     ],
   },
 
@@ -337,8 +336,7 @@ export const siteConfig: SiteConfig = {
   // CONTACT - wired to Web3Forms (https://web3forms.com, free)
   // ============================================
   contact: {
-    // TODO: paste your Web3Forms access key from https://web3forms.com
-    web3formsAccessKey: "YOUR_WEB3FORMS_ACCESS_KEY",
+    web3formsAccessKey: "aec68296-e973-4bf7-8b99-5d3c75d2fd25",
     heading: "contact_",
     intro: "> send a transmission_",
   },
