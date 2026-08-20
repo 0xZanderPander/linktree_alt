@@ -1,0 +1,685 @@
+/* Import brand styles from lib/brand-styles */
+@import "../lib/brand-styles/brand.css";
+@import "../lib/brand-styles/typography.css";
+@import "./theme.css";
+@import "tailwindcss";
+
+/* Tailwind 4 Theme Configuration */
+@theme inline {
+  /* Typography - Font families - Helvetica Neue Extended (Bold/Heavy),
+     loaded via next/font/local (see src/lib/fonts.ts) */
+  --font-sans: var(--font-helvetica-ext), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: var(--font-helvetica-ext), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-accent: var(--font-helvetica-ext), "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  /* Typography - Font sizes (from BOS-3.0) */
+  --font-size-xs: 0.75rem;      /* 12px */
+  --font-size-sm: 0.875rem;     /* 14px */
+  --font-size-base: 1rem;       /* 16px */
+  --font-size-lg: 1.125rem;     /* 18px */
+  --font-size-xl: 1.25rem;      /* 20px */
+  --font-size-2xl: 1.5rem;      /* 24px */
+  --font-size-3xl: 2rem;        /* 32px */
+  --font-size-4xl: 2.5rem;      /* 40px */
+
+  /* Typography - Line heights */
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 1.75;
+
+  /* Colors - Semantic tokens mapped from CSS variables */
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-tertiary: var(--bg-tertiary);
+  --color-bg-quaternary: var(--bg-quaternary);
+  --color-bg-overlay: var(--bg-overlay);
+  --color-bg-brand-solid: var(--bg-brand-solid);
+  --color-bg-brand-solid-hover: var(--bg-brand-solid_hover);
+
+  --color-fg-primary: var(--fg-primary);
+  --color-fg-secondary: var(--fg-secondary);
+  --color-fg-tertiary: var(--fg-tertiary);
+  --color-fg-quaternary: var(--fg-quaternary);
+  --color-fg-disabled: var(--fg-disabled);
+  --color-fg-placeholder: var(--fg-placeholder);
+  --color-fg-brand-primary: var(--fg-brand-primary);
+  --color-fg-brand-accent: var(--fg-brand-primary);
+  --color-fg-white: var(--fg-white);
+
+  --color-border-primary: var(--border-primary);
+  --color-border-secondary: var(--border-secondary);
+  --color-border-tertiary: var(--border-tertiary);
+  --color-border-brand: var(--border-brand);
+  --color-border-brand-solid: var(--border-brand-solid);
+
+  /* Brand primitives */
+  --color-charcoal: #000000;
+  --color-vanilla: #39FF6E;
+  --color-accent: #00ff41;
+
+  /* Shadows */
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+
+  /* Border radius */
+  --radius-brand: 0px;
+  --radius-brand-lg: 0px;
+}
+
+/* Base styles */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+  color: var(--fg-primary);
+  background: var(--bg-primary);
+  font-family: var(--font-helvetica-ext), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Focus visible styles */
+*:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   HACKER / CRT THEME ACCENTS
+   ============================================ */
+
+::selection {
+  background: rgba(57, 255, 110, 0.35);
+  color: #eafff0;
+}
+
+/* Scanline overlay - sits above the WebGL matrix-rain background,
+   below all real content (see z-index layering in layout.tsx) */
+.crt-scanlines {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 1px,
+    rgba(0, 20, 8, 0.18) 2px,
+    rgba(0, 20, 8, 0.18) 3px
+  );
+  mix-blend-mode: multiply;
+}
+
+/* Soft dark vignette around the screen edges, like a CRT tube */
+.crt-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0) 55%,
+    rgba(0, 5, 2, 0.6) 100%
+  );
+}
+
+@keyframes crt-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  93% {
+    opacity: 0.94;
+  }
+  94% {
+    opacity: 1;
+  }
+  97% {
+    opacity: 0.97;
+  }
+  98% {
+    opacity: 1;
+  }
+}
+
+.crt-flicker {
+  animation: crt-flicker 6s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crt-flicker {
+    animation: none;
+  }
+}
+
+/* Phosphor glow for accent text/labels */
+.text-glow {
+  text-shadow: 0 0 6px rgba(57, 255, 110, 0.55), 0 0 14px rgba(0, 255, 65, 0.25);
+}
+
+/* Prevent text selection on UI elements */
+button,
+[role="button"] {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-gray-600);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-500);
+}
+
+/* Utility for overflow: clip (not in Tailwind by default) */
+.overflow-clip {
+  overflow: clip;
+}
+
+/* CardNav card hover effect */
+.nav-card {
+  border: 1px solid var(--border-secondary);
+  transition: border-color 0.15s ease;
+}
+
+.nav-card:hover {
+  border-color: var(--border-brand);
+}
+
+/* Card text and arrow - default vanilla color */
+.nav-card-text,
+.nav-card-arrow {
+  color: var(--color-vanilla);
+  text-shadow: 0 0 6px rgba(57, 255, 110, 0.4);
+}
+
+/* Card text and arrow - Brand color on hover */
+.nav-card:hover .nav-card-text,
+.nav-card:hover .nav-card-arrow {
+  color: var(--fg-brand-primary);
+}
+
+/* Link icon hover effect */
+.link-icon {
+  border-color: var(--color-vanilla);
+  color: var(--color-vanilla);
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.link-icon:hover {
+  border-color: var(--border-brand);
+  color: var(--fg-brand-primary);
+}
+
+/* ============================================
+   RESPONSIVE SIZE TOKENS
+   ============================================ */
+/* --resource-card-padding is reused by .blog-card below for a shared
+   responsive padding scale (12/14/16px) across both card families. */
+
+/* CSS Custom Properties for responsive sizing */
+:root {
+  /* Clip boundary - aligns with NavCard bottom */
+  --clip-top: 76px;
+
+  /* Link-in-bio narrow layout */
+  --content-max-width: 448px;
+
+  /* Shared responsive padding scale (blog-card) */
+  --resource-card-padding: 12px;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --content-max-width: 520px;
+    --resource-card-padding: 14px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --content-max-width: 720px;
+    --resource-card-padding: 16px;
+  }
+}
+
+/* Card button - responsive (for dark cards with vanilla styling) */
+.card-button {
+  border: 1px solid var(--color-vanilla);
+  color: var(--color-vanilla);
+  background: transparent;
+  transition: all 0.15s ease;
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+@media (min-width: 640px) {
+  .card-button {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .card-button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+
+.card-button:hover {
+  background: var(--color-vanilla);
+  color: #000000;
+}
+
+/* ============================================
+   OUR LINKS - Swipeable Cards Carousel
+   ============================================ */
+
+/* Scroll wrapper - provides edge-to-edge scrolling */
+.links-scroll-wrapper {
+  width: 100%;
+  overflow: visible;
+}
+
+/* Scroll container */
+.links-scroll {
+  display: flex;
+  gap: 17px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+/* Tablet - symmetric padding aligned with content max-width */
+@media (min-width: 640px) {
+  .links-scroll {
+    padding-left: max(16px, calc((100vw - var(--content-max-width)) / 2));
+    padding-right: max(16px, calc((100vw - var(--content-max-width)) / 2));
+  }
+}
+
+/* Desktop - full alignment with content max-width */
+@media (min-width: 1024px) {
+  .links-scroll {
+    padding-left: max(16px, calc((100vw - var(--content-max-width)) / 2));
+    padding-right: max(16px, calc((100vw - var(--content-max-width)) / 2));
+  }
+}
+
+.links-scroll::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* Link card - peek effect with partial card visible */
+.link-card {
+  scroll-snap-align: start;
+  /* Show ~3.5 cards with partial 4th for peek effect */
+  width: calc((var(--content-max-width) - 2rem - 51px) / 3.5);
+  min-width: 80px;
+  max-width: 100px;
+}
+
+/* Tablet - more cards visible */
+@media (min-width: 640px) {
+  .link-card {
+    width: calc((var(--content-max-width) - 2rem - 68px) / 4.5);
+    max-width: 95px;
+  }
+}
+
+/* Desktop - even more cards */
+@media (min-width: 1024px) {
+  .link-card {
+    width: calc((var(--content-max-width) - 2rem - 85px) / 5.5);
+    max-width: 110px;
+  }
+}
+
+/* Link card hover effect */
+.link-card {
+  transition: border-color 0.15s ease;
+}
+
+.link-card:hover {
+  border-color: var(--border-brand) !important;
+}
+
+.link-card .link-card-icon {
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+/* Grid-mode link tile - same hover treatment as .link-card, but no
+   width/max-width cap so tiles stretch to fill the full row width. */
+.link-tile {
+  transition: border-color 0.15s ease;
+}
+
+.link-tile:hover {
+  border-color: var(--border-brand) !important;
+}
+
+.link-tile .link-card-icon {
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+/* Desktop reordering for Our Links grid */
+@media (min-width: 640px) {
+  .our-links-grid .link-card {
+    order: var(--desktop-order, 0);
+  }
+}
+
+/* Our Links Carousel Mode */
+.our-links-carousel {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 4px 56px;
+  scroll-padding-left: 56px; /* Offset snap points for left arrow overlay */
+  scroll-padding-right: 56px; /* Offset snap points for right arrow overlay */
+}
+
+.our-links-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* Carousel cards - fixed width with aspect-square */
+.our-links-carousel .carousel-card {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  width: 100px;
+  min-width: 100px;
+}
+
+/* Arrow buttons - now positioned within gradient overlays */
+.our-links-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 0;
+  background: rgba(25, 25, 25, 0.9);
+  border: 1px solid var(--color-vanilla);
+  color: var(--color-vanilla);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.our-links-arrow:hover {
+  background: rgba(25, 25, 25, 1);
+  border-color: var(--border-brand);
+  color: var(--border-brand);
+}
+
+
+/* ============================================
+   RECENT BLOGS - Vertical Stacked Cards
+   ============================================ */
+
+/* Blog card container - reuses the same responsive padding scale as
+   .resource-card (12/14/16px) so the two card families feel consistent */
+.blog-card {
+  padding: var(--resource-card-padding);
+  background: #000000;
+  border: 1px solid var(--color-vanilla);
+  border-radius: 0;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.blog-card:hover {
+  border-color: var(--border-brand);
+  background: var(--bg-secondary_hover);
+}
+
+/* Blog card image */
+.blog-card-image {
+  width: var(--blog-card-image-size, 80px);
+  height: var(--blog-card-image-size, 80px);
+}
+
+/* Blog card typography - responsive (BOS-3.0 aligned) */
+.blog-card-title {
+  font-size: var(--text-card-title-sm); /* 15px */
+  line-height: var(--leading-heading);  /* 1.3 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blog-card-date {
+  font-size: var(--text-xxs); /* 11px - minimum for a11y */
+}
+
+.blog-card-author {
+  font-size: var(--text-xxs); /* 11px - minimum for a11y */
+}
+
+.blog-card-description {
+  font-size: var(--text-card-description-sm); /* 13px */
+  line-height: var(--leading-small); /* 1.4 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .blog-card {
+    padding: 14px;
+  }
+
+  .blog-card-image {
+    width: 100px;
+    height: 100px;
+  }
+
+  .blog-card-title {
+    font-size: var(--text-card-title-sm); /* 15px */
+  }
+
+  .blog-card-date {
+    font-size: var(--text-xs); /* 12px */
+  }
+
+  .blog-card-author {
+    font-size: var(--text-xs); /* 12px */
+  }
+
+  .blog-card-description {
+    font-size: var(--text-card-description-sm); /* 13px */
+    line-height: var(--leading-body); /* 1.5 */
+  }
+}
+
+@media (min-width: 1024px) {
+  .blog-card {
+    padding: 16px;
+  }
+
+  .blog-card-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .blog-card-title {
+    font-size: var(--text-card-title); /* 16px */
+    line-height: var(--leading-small); /* 1.4 */
+  }
+
+  .blog-card-date {
+    font-size: var(--text-xs); /* 12px */
+  }
+
+  .blog-card-author {
+    font-size: var(--text-xs); /* 12px */
+  }
+
+  .blog-card-description {
+    font-size: var(--text-card-description); /* 14px */
+  }
+}
+
+/* ============================================
+   SUBSCRIBE FORM - Newsletter Signup
+   ============================================ */
+
+/* Subscribe form container */
+.subscribe-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (min-width: 640px) {
+  .subscribe-form {
+    flex-direction: row;
+  }
+}
+
+/* Subscribe input */
+.subscribe-input {
+  flex: 1;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-family: inherit;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-secondary);
+  border-radius: 0;
+  color: var(--fg-primary);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.subscribe-input::placeholder {
+  color: var(--fg-quaternary);
+}
+
+.subscribe-input:focus {
+  outline: none;
+  border-color: var(--border-primary);
+  background: var(--bg-secondary_hover);
+}
+
+/* Subscribe button */
+.subscribe-button {
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  background: var(--bg-secondary);
+  color: var(--color-vanilla);
+  border: 1px solid var(--border-secondary);
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.subscribe-button:hover {
+  border-color: var(--border-brand);
+  background: var(--bg-secondary_hover);
+}
+
+/* Hint text below form */
+.subscribe-hint {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--fg-quaternary);
+}
+
+/* ============================================
+   LINK ICONS (Our Links section)
+   ============================================ */
+
+/* CSS Custom Properties for link icons (Our Links section) */
+:root {
+  --link-icon-size: 18px;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --link-icon-size: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --link-icon-size: 22px;
+  }
+}
+
+/* Link icon SVG sizing */
+.link-icon-svg {
+  width: var(--link-icon-size);
+  height: var(--link-icon-size);
+}
+
+/* ============================================
+   SCROLL PROGRESS INDICATOR
+   ============================================ */
+
+.scroll-progress-container {
+  padding: 0.75rem 1rem 0;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .scroll-progress-container {
+    padding-left: max(1rem, calc((100vw - var(--content-max-width)) / 2));
+    padding-right: max(1rem, calc((100vw - var(--content-max-width)) / 2));
+  }
+}
+
+.scroll-progress-track {
+  height: 4px;
+  background: var(--border-secondary);
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.scroll-progress-thumb {
+  height: 100%;
+  background: var(--fg-tertiary);
+  border-radius: 0;
+  transition: width 0.15s ease-out;
+}

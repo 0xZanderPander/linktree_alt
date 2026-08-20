@@ -1,0 +1,225 @@
+/**
+ * Linktree Alternative CSS Styles
+ *
+ * This stylesheet contains all CSS custom properties, font declarations,
+ * and base styles. Typeface is Helvetica Neue Extended (Bold/Heavy),
+ * loaded locally via next/font/local (see src/lib/fonts.ts) and exposed
+ * here as the --font-helvetica-ext CSS variable - modern, heavy, wide,
+ * meets hacker-box instead of a monospaced terminal feel.
+ */
+
+/* ============================================
+   CSS Custom Properties (Design Tokens)
+   ============================================ */
+
+:root {
+  /* Brand Colors */
+  --brand-charcoal: #000000;
+  --brand-vanilla: #39ff6e;
+  --brand-accent: #00ff41;
+
+  /* OS Dark Theme Palette */
+  --os-bg-darker: #030603;
+  --os-bg-dark: #081208;
+  --os-surface-dark: #0d1f10;
+  --os-border-dark: #1a3d20;
+  --os-text-primary-dark: #b9ffc7;
+  --os-text-secondary-dark: #5fae6f;
+
+  /* Border Radius */
+  --radius-brand: 0px;
+  --radius-brand-lg: 0px;
+
+  /* Shadows */
+  --shadow-brand: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-brand-lg: 0 4px 16px rgba(0, 0, 0, 0.15);
+
+  /* Neuromorphic Shadows */
+  --shadow-neuro: 4px 4px 8px rgba(0, 0, 0, 0.3),
+                  -4px -4px 8px rgba(255, 255, 255, 0.02),
+                  inset 2px 2px 4px rgba(0, 0, 0, 0.2),
+                  inset -2px -2px 4px rgba(255, 255, 255, 0.01);
+  --shadow-neuro-hover: 6px 6px 12px rgba(0, 0, 0, 0.4),
+                        -6px -6px 12px rgba(255, 255, 255, 0.03),
+                        inset 1px 1px 2px rgba(0, 0, 0, 0.15),
+                        inset -1px -1px 2px rgba(255, 255, 255, 0.02);
+  --shadow-neuro-active: 2px 2px 4px rgba(0, 0, 0, 0.3),
+                         -2px -2px 4px rgba(255, 255, 255, 0.02),
+                         inset 4px 4px 8px rgba(0, 0, 0, 0.3),
+                         inset -4px -4px 8px rgba(255, 255, 255, 0.01);
+
+  /* Typography - Helvetica Neue Extended (Bold/Heavy), loaded via
+     next/font/local and exposed as --font-helvetica-ext on <html> */
+  --font-display: var(--font-helvetica-ext), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans: var(--font-helvetica-ext), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: var(--font-helvetica-ext), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-accent: var(--font-helvetica-ext), "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  /* Accessibility */
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+  --focus-ring-color: var(--brand-accent);
+  --min-touch-target: 44px;
+
+  /* Transitions */
+  --transition-colors: color 200ms ease, background-color 200ms ease, border-color 200ms ease;
+}
+
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+
+/* Hide scrollbar while maintaining scroll functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Line clamp utilities */
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Single line truncate */
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* ============================================
+   Animation Classes
+   ============================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+@keyframes cursor {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.fade-in-up {
+  animation: fadeIn 0.2s ease-in-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.2s ease-out forwards;
+}
+
+.animate-slide-out-right {
+  animation: slideOutRight 0.2s ease-in forwards;
+}
+
+.animate-blob {
+  animation: blob 10s infinite;
+}
+
+
+/* ============================================
+   Neuromorphic UI Component
+   ============================================ */
+
+.neuromorphic-prompt {
+  background: linear-gradient(145deg, #132a17, #0d1f10);
+  box-shadow: var(--shadow-neuro);
+  transition: all 0.2s ease;
+}
+
+.neuromorphic-prompt:hover {
+  box-shadow: var(--shadow-neuro-hover);
+  transform: translateY(-2px);
+}
+
+.neuromorphic-prompt:active {
+  box-shadow: var(--shadow-neuro-active);
+  transform: translateY(0);
+}
+
+
+/* ============================================
+   Button Styles
+   ============================================ */
+
+button,
+[role="button"] {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+
+/* ============================================
+   Icon Styles (Lucide compatibility)
+   ============================================ */
+
+.lucide {
+  stroke-width: 1 !important;
+}
