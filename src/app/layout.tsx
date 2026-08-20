@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import "./globals.css";
 import { FaultyTerminal } from "@/components/FaultyTerminal";
@@ -14,6 +14,13 @@ export const metadata: Metadata = {
       { url: withBasePath(siteConfig.metadata.favicon), type: "image/png" },
     ],
   },
+};
+
+// Without this, mobile browsers fall back to a 980px layout viewport and
+// the whole site renders zoomed out / clipped on phones.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({

@@ -280,10 +280,10 @@
   --fg-primary: var(--color-vanilla);
   --fg-secondary: var(--color-gray-300);
   --fg-secondary_hover: var(--color-gray-200);
-  --fg-tertiary: var(--color-gray-400);
+  --fg-tertiary: var(--color-gray-300);
   --fg-tertiary_hover: var(--color-gray-300);
-  --fg-quaternary: var(--color-gray-500);
-  --fg-quaternary_hover: var(--color-gray-400);
+  --fg-quaternary: var(--color-gray-400);
+  --fg-quaternary_hover: var(--color-gray-300);
   --fg-quinary: var(--color-gray-600);
   --fg-quinary_hover: var(--color-gray-500);
   --fg-senary: var(--color-gray-700);

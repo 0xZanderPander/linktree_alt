@@ -1,4 +1,5 @@
 import { PageShell } from "@/components/PageShell";
+import { OurLinks } from "@/components/OurLinks";
 import { siteConfig } from "@/config/site.config";
 
 export default function AboutPage() {
@@ -8,7 +9,7 @@ export default function AboutPage() {
     <PageShell>
       <section className="w-full">
         <h1
-          className="text-xl font-bold mb-4"
+          className="text-xl font-bold section-heading"
           style={{ color: "var(--color-vanilla)" }}
         >
           {about.heading}
@@ -31,6 +32,7 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
+      <OurLinks showHeading={false} />
     </PageShell>
   );
 }

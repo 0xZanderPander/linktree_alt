@@ -1,5 +1,5 @@
 import { CardNav } from "@/components/CardNav";
-import { Footer } from "@/components/Footer";
+import { ContactToggle } from "@/components/ContactToggle";
 
 /**
  * Shared chrome for content pages (about / music / contact / projects).
@@ -9,7 +9,7 @@ import { Footer } from "@/components/Footer";
 export function PageShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen relative">
-      <div className="sticky top-4 z-50 px-[clamp(1rem,4vw,3rem)] pb-4">
+      <div className="sticky top-4 z-50 px-[clamp(1rem,4vw,3rem)] pb-8 sm:pb-10">
         <CardNav />
       </div>
       {/* Padding lives on this outer wrapper only (matches CardNav's own
@@ -18,11 +18,12 @@ export function PageShell({ children }: { children: React.ReactNode }) {
           gap-6 sm:gap-8 matches the homepage's section rhythm - individual
           page sections should not carry their own mt-* margins on top of it. */}
       <div className="px-[clamp(1rem,4vw,3rem)] pb-6">
-        <main className="flex flex-col gap-6 sm:gap-8 max-w-[var(--content-max-width)] mx-auto">
+        <main className="section-stack flex flex-col max-w-[var(--content-max-width)] mx-auto">
           {children}
+          {/* The contact toggle IS the footer - present on every page. */}
+          <ContactToggle />
         </main>
       </div>
-      <Footer />
     </div>
   );
 }

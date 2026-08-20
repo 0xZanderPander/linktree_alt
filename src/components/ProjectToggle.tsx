@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { SubscribeModal, hasResourceAccess } from "./SubscribeModal";
+import { ToggleFace } from "./ToggleFace";
 import { siteConfig, type Resource } from "@/config/site.config";
 
 function ExternalLinkIcon() {
@@ -56,23 +57,12 @@ export function ProjectToggle({ project }: { project: Resource }) {
         aria-controls={`project-toggle-${project.id}`}
       >
         <span
-          className="text-sm font-bold tracking-wide truncate"
+          className="text-sm font-bold tracking-wide truncate toggle-title"
           style={{ color: "var(--color-charcoal)" }}
         >
           {project.title}
         </span>
-        <span
-          className="flex items-center justify-center w-[28px] h-[28px] flex-shrink-0 font-bold text-base leading-none"
-          style={{
-            color: "var(--color-charcoal)",
-            border: "2px solid var(--color-charcoal)",
-            background: isOpen ? "var(--color-charcoal)" : "transparent",
-          }}
-        >
-          <span style={{ color: isOpen ? "var(--color-vanilla)" : "var(--color-charcoal)" }}>
-            {isOpen ? "X" : "<"}
-          </span>
-        </span>
+        <ToggleFace isOpen={isOpen} />
       </button>
 
       <div

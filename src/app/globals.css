@@ -250,8 +250,11 @@ button,
   /* Clip boundary - aligns with NavCard bottom */
   --clip-top: 76px;
 
-  /* Link-in-bio narrow layout */
-  --content-max-width: 448px;
+  /* Link-in-bio narrow layout.
+     Clamped to the viewport so it never overflows on phones narrower than
+     448px (iPhone SE 375, iPhone 13/14/15 390, Pixel 412, Galaxy S 360).
+     The 16px inset on each side matches the min padding used below. */
+  --content-max-width: min(448px, calc(100vw - 32px));
 
   /* Shared responsive padding scale (blog-card) */
   --resource-card-padding: 12px;
@@ -682,4 +685,52 @@ button,
   background: var(--fg-tertiary);
   border-radius: 0;
   transition: width 0.15s ease-out;
+}
+
+/* ============================================
+   SECTION STACK - dividers + rhythm
+   ============================================
+   One place owns vertical rhythm between top-level sections. The gap above
+   each rule and the padding below it are the same number, so every divider
+   sits optically centred in its gutter. Sections must not add their own
+   mt-*/pt-* on top of this. */
+.section-stack {
+  gap: 22px;
+}
+
+.section-stack > * + * {
+  border-top: 1px solid color-mix(in srgb, var(--color-vanilla) 22%, transparent);
+  padding-top: 21px;
+}
+
+@media (min-width: 640px) {
+  .section-stack {
+    gap: 26px;
+  }
+  .section-stack > * + * {
+    padding-top: 25px;
+  }
+}
+
+/* Section headings hug the content they label. */
+.section-heading,
+.section-heading > * {
+  /* Pin the leading so the gap under a divider is the padding value and
+     nothing else - default leading was adding a variable 8px on top,
+     which made every rule sit high in its gutter. The descendant selector
+     covers headings wrapped in a flex row (CurrentProjects). */
+  line-height: 1.1;
+}
+
+.section-heading {
+  margin-bottom: 14px;
+}
+
+/* All header text is uppercase; the trailing "_" was stripped at source.
+   .toggle-title covers window title bars (CardNav / ProjectToggle /
+   ContactToggle) so they read as headers too. */
+.section-heading,
+.toggle-title,
+.nav-card-text {
+  text-transform: uppercase;
 }

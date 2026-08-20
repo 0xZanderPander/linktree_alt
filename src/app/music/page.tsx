@@ -73,41 +73,28 @@ export default function MusicPage() {
     <PageShell>
       <section className="w-full">
         <h1
-          className="text-xl font-bold mb-2"
+          className="text-xl font-bold section-heading"
           style={{ color: "var(--color-vanilla)" }}
         >
-          music_
+          music
         </h1>
-        <p
-          className="text-sm mb-5"
-          style={{ color: "var(--color-vanilla)", opacity: 0.7 }}
-        >
-          &gt; now playing_
-        </p>
-
-        <div className="max-w-md flex flex-col gap-3">
+        <div className="w-full flex flex-col gap-3">
           <SoundCloudPlayer url={music.soundcloudUrl} />
 
-          <div>
-            <p
-              className="text-xs font-medium mb-2"
-              style={{ color: "var(--color-vanilla)", opacity: 0.7 }}
-            >
-              &gt; listen on_
-            </p>
-            <PlatformLinksRow links={music.profileLinks} />
-          </div>
+          <PlatformLinksRow links={music.profileLinks} />
         </div>
       </section>
 
       <section className="w-full">
         <h2
-          className="text-lg font-bold mb-3 sm:mb-4"
+          className="text-lg font-bold section-heading"
           style={{ color: "var(--color-vanilla)" }}
         >
-          releases_
+          releases
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Full-width stack, matching the homepage's project rhythm - the
+            old md:grid-cols-2 made release cards narrower than the column. */}
+        <div className="flex flex-col gap-4">
           {music.releases.map((release) => (
             <ReleaseCard key={release.id} release={release} />
           ))}

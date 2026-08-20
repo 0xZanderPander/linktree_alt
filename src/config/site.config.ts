@@ -88,7 +88,7 @@ export interface SiteConfig {
   };
   /** Navigation items shown in expandable header menu */
   nav: NavItem[];
-  /** Social media links (max 5 recommended) */
+  /** Social media links - the row scrolls horizontally, so there is no hard cap */
   socialLinks: SocialLink[];
   /** Featured resources/projects (max 3 recommended) */
   resources: Resource[];
@@ -159,7 +159,7 @@ export const siteConfig: SiteConfig = {
   branding: {
     // Set to null to hide logo, or provide path like "/images/logo.svg"
     logo: null,
-    logoAlt: "SYSTEM_",
+    logoAlt: "SYSTEM DIRECTORY",
     websiteUrl: "https://example.com",
     tagline: "> connection established. all systems nominal_",
     email: "hello@example.com",
@@ -197,21 +197,23 @@ export const siteConfig: SiteConfig = {
   // NAVIGATION - real routes, not anchors
   // ============================================
   nav: [
-    { id: "nav-about", label: "about_", href: "/about" },
-    { id: "nav-music", label: "music_", href: "/music" },
-    { id: "nav-contact", label: "contact_", href: "/contact" },
-    { id: "nav-projects", label: "projects_", href: "/projects" },
+    // contact_ lives in the footer on every page, so the nav slot is a way
+    // back to the homepage instead.
+    { id: "nav-home", label: "home", href: "/" },
+    { id: "nav-about", label: "about", href: "/about" },
+    { id: "nav-music", label: "music", href: "/music" },
+    { id: "nav-projects", label: "projects", href: "/projects" },
   ],
 
   // ============================================
-  // SOCIAL LINKS (max 5)
+  // SOCIAL LINKS - horizontal scroller, add as many as you like
   // ============================================
   socialLinks: [
     {
       id: "music",
       platform: "music",
       title: "Music",
-      handle: "listen now",
+      handle: "+",
       url: "/music",
       icon: "music",
     },
@@ -219,7 +221,7 @@ export const siteConfig: SiteConfig = {
       id: "github",
       platform: "github",
       title: "Github",
-      handle: "@0xZanderPander",
+      handle: "+",
       url: "https://github.com/0xZanderPander",
       icon: "github",
     },
@@ -227,7 +229,7 @@ export const siteConfig: SiteConfig = {
       id: "substack",
       platform: "substack",
       title: "Substack",
-      handle: "@bratboymusic",
+      handle: "+",
       url: "https://substack.com/@bratboymusic",
       icon: "substack",
     },
@@ -235,7 +237,7 @@ export const siteConfig: SiteConfig = {
       id: "instagram",
       platform: "instagram",
       title: "Insta",
-      handle: "@brat_boy_music",
+      handle: "+",
       url: "https://www.instagram.com/brat_boy_music",
       icon: "instagram",
     },
@@ -243,9 +245,17 @@ export const siteConfig: SiteConfig = {
       id: "website",
       platform: "website",
       title: "Website",
-      handle: "@handle",
+      handle: "+",
       url: "https://example.com", // TODO: replace with your site (or later: YouTube)
       icon: "website",
+    },
+    {
+      id: "x",
+      platform: "x",
+      title: "X",
+      handle: "+",
+      url: "https://x.com/brat_boy_music",
+      icon: "x",
     },
   ],
 
@@ -256,7 +266,7 @@ export const siteConfig: SiteConfig = {
   resources: [
     {
       id: "memory-palace",
-      title: "Memory Palace",
+      title: "Memory Machine",
       description:
         "TODO: one or two sentences on what this is.", // TODO: replace with real description
       link: "#", // TODO: project link
@@ -298,7 +308,7 @@ export const siteConfig: SiteConfig = {
     // TODO: replace with your real SoundCloud track or set/playlist URL
     // (must be public). Powers the custom-skinned player via SoundCloud's
     // Widget API - see /music/page.tsx.
-    soundcloudUrl: "https://soundcloud.com/soundcloud/sets/soundcloud-community",
+    soundcloudUrl: "https://soundcloud.com/prime-nightcult/sets/american-dave-present-ep",
     // TODO: your artist-profile URLs on each platform (not a specific
     // release - your overall Spotify/Apple/SoundCloud/Bandcamp profile).
     profileLinks: {
@@ -324,7 +334,7 @@ export const siteConfig: SiteConfig = {
   // ABOUT
   // ============================================
   about: {
-    heading: "about_",
+    heading: "about",
     bio: [
       "Exploring for profit violence through culture, technology, art, drugs, media, power & other perfectly normal things <3",
     ],
@@ -335,7 +345,7 @@ export const siteConfig: SiteConfig = {
   // ============================================
   contact: {
     web3formsAccessKey: "aec68296-e973-4bf7-8b99-5d3c75d2fd25",
-    heading: "contact_",
+    heading: "contact",
     intro: "> send a transmission_",
   },
 };
@@ -344,12 +354,17 @@ export const siteConfig: SiteConfig = {
 // HELPER EXPORTS
 // ============================================
 
-/** Get the base path for assets (used in components) */
-export const getBasePath = () => {
-  // In development or when basePath is not set, return empty string
-  // In production with GitHub Pages, this should match next.config.ts basePath
-  return process.env.NODE_ENV === "production" ? "/linktree-alternative" : "";
-};
+/**
+ * Get the base path for assets (used in components).
+ *
+ * MUST stay in sync with `basePath` in next.config.ts.
+ *
+ * Not environment-dependent: Next applies basePath in dev as well as in
+ * production, so returning "" in dev produced links that 404'd locally.
+ */
+export const BASE_PATH = "/linktree_alt";
+
+export const getBasePath = () => BASE_PATH;
 
 /** Prepend base path to asset URLs */
 export const withBasePath = (path: string) => {

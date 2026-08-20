@@ -9,10 +9,10 @@ export default function ProjectsPage() {
     <PageShell>
       <section className="w-full">
         <h1
-          className="text-xl font-bold mb-4"
+          className="text-xl font-bold section-heading"
           style={{ color: "var(--color-vanilla)" }}
         >
-          projects_
+          projects
         </h1>
         <div className="flex flex-col gap-3">
           {projects.map((project) => (

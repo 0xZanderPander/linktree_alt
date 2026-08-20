@@ -14,7 +14,7 @@ export function CurrentProjects() {
       {/* Container with max-width */}
       <div className="max-w-[var(--content-max-width)] mx-auto">
         {/* Heading */}
-        <div className="flex items-center justify-between mb-3 sm:mb-4">
+        <div className="flex items-center justify-between section-heading">
           <h2
             className="text-xl font-bold"
             style={{ color: "var(--color-vanilla)" }}

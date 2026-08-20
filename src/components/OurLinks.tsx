@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useSyncExternalStore } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { siteConfig } from "@/config/site.config";
+import { siteConfig, withBasePath } from "@/config/site.config";
 
 // Breakpoint for carousel mode (matches sm: breakpoint roughly)
 const CAROUSEL_BREAKPOINT = 600;
@@ -35,6 +35,14 @@ function GitHubIcon() {
       strokeLinejoin="round"
     >
       <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+    </svg>
+  );
+}
+
+function XIcon() {
+  return (
+    <svg className="link-icon-svg" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.53 3h3.02l-6.6 7.54L21.75 21h-5.9l-4.62-6.04L5.94 21H2.91l7.06-8.07L2.5 3h6.05l4.18 5.52L17.53 3Zm-1.06 16.2h1.67L7.6 4.72H5.81L16.47 19.2Z" />
     </svg>
   );
 }
@@ -256,6 +264,7 @@ function WebsiteIcon() {
 const iconMap: Record<string, React.ReactNode> = {
   github: <GitHubIcon />,
   twitter: <TwitterIcon />,
+  x: <XIcon />,
   linkedin: <LinkedInIcon />,
   instagram: <InstagramIcon />,
   youtube: <YouTubeIcon />,
@@ -269,19 +278,33 @@ const iconMap: Record<string, React.ReactNode> = {
   custom: <LinkIcon />,
 };
 
+/**
+ * Internal routes (e.g. the Music card's "/music") need the GitHub Pages
+ * basePath applied and must NOT open in a new tab. External profiles do.
+ */
+function linkProps(url: string) {
+  const internal = url.startsWith("/");
+  return internal
+    ? { href: withBasePath(url) }
+    : { href: url, target: "_blank", rel: "noopener noreferrer" };
+}
+
 function getIcon(iconType: string) {
   return iconMap[iconType] || iconMap.custom;
 }
 
-export function OurLinks() {
+export function OurLinks({ showHeading = true }: { showHeading?: boolean } = {}) {
   const links = siteConfig.socialLinks;
 
   // Use useSyncExternalStore for media query to avoid setState-in-effect pattern
-  const isCarouselMode = useSyncExternalStore(
-    subscribeToCarouselMode,
-    getCarouselModeSnapshot,
-    getServerCarouselModeSnapshot
-  );
+  // Links are always a uniform-width horizontal scroller. The old grid mode
+  // used flex-1, which squashed each card to its text width and left the row
+  // looking ragged.
+  const isCarouselMode = true;
+  void useSyncExternalStore;
+  void subscribeToCarouselMode;
+  void getCarouselModeSnapshot;
+  void getServerCarouselModeSnapshot;
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -338,17 +361,19 @@ export function OurLinks() {
       {/* Container with max-width */}
       <div className="max-w-[var(--content-max-width)] mx-auto">
         {/* Heading */}
-        <h2
-          className="text-xl font-bold mb-3 sm:mb-4"
-          style={{ color: "var(--color-vanilla)" }}
-        >
-          Links
-        </h2>
+        {showHeading && (
+          <h2
+            className="text-xl font-bold section-heading"
+            style={{ color: "var(--color-vanilla)" }}
+          >
+            Links
+          </h2>
+        )}
 
         {isCarouselMode ? (
           /* Carousel mode - horizontal scroll with arrows inside container */
           <div
-            className="rounded-none py-3"
+            className="rounded-none"
             style={{ background: "var(--color-charcoal)" }}
           >
           <div className="relative">
@@ -377,9 +402,7 @@ export function OurLinks() {
               {links.map((link) => (
                 <a
                   key={link.id}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  {...linkProps(link.url)}
                   className="link-card carousel-card flex flex-col justify-between p-3 rounded-none transition-all duration-150 aspect-square"
                   style={{
                     background: "var(--color-charcoal)",
@@ -402,7 +425,10 @@ export function OurLinks() {
                     >
                       {link.title}
                     </span>
-                    <span className="text-[11px] leading-tight truncate text-[var(--color-vanilla)]/70">
+                    <span
+                      className="text-[13px] font-semibold leading-tight text-[var(--color-vanilla)]/85"
+                      aria-hidden="true"
+                    >
                       {link.handle}
                     </span>
                   </div>
@@ -435,9 +461,7 @@ export function OurLinks() {
             {links.map((link) => (
               <a
                 key={link.id}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
+                {...linkProps(link.url)}
                 className="link-tile flex-1 flex flex-col justify-between p-3 rounded-none transition-all duration-150 aspect-square"
                 style={{
                   background: "var(--color-charcoal)",
@@ -460,7 +484,10 @@ export function OurLinks() {
                   >
                     {link.title}
                   </span>
-                  <span className="text-[11px] leading-tight truncate text-[var(--color-vanilla)]/70">
+                  <span
+                    className="text-[13px] font-semibold leading-tight text-[var(--color-vanilla)]/85"
+                    aria-hidden="true"
+                  >
                     {link.handle}
                   </span>
                 </div>

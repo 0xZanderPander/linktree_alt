@@ -173,7 +173,7 @@ export function SoundCloudPlayer({ url }: { url: string }) {
         {trackArtist && (
           <p
             className="text-xs truncate"
-            style={{ color: "var(--color-vanilla)", opacity: 0.6 }}
+            style={{ color: "var(--color-vanilla)", opacity: 0.85 }}
           >
             {trackArtist}
           </p>
@@ -191,7 +191,7 @@ export function SoundCloudPlayer({ url }: { url: string }) {
           style={{ width: `${progressPct}%`, background: "var(--color-vanilla)" }}
         />
       </div>
-      <div className="flex justify-between text-[10px] mb-3" style={{ color: "var(--color-vanilla)", opacity: 0.6 }}>
+      <div className="flex justify-between text-[10px] mb-3" style={{ color: "var(--color-vanilla)", opacity: 0.85 }}>
         <span>{formatTime(position)}</span>
         <span>{formatTime(duration)}</span>
       </div>
@@ -210,7 +210,7 @@ export function SoundCloudPlayer({ url }: { url: string }) {
           onClick={togglePlay}
           aria-label={isPlaying ? "Pause" : "Play"}
           disabled={!isReady}
-          className="w-12 h-9 flex items-center justify-center font-bold disabled:opacity-50"
+          className="h-9 px-4 min-w-[68px] flex items-center justify-center font-bold disabled:opacity-50"
           style={{
             background: "var(--color-vanilla)",
             color: "var(--color-charcoal)",

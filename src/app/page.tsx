@@ -1,5 +1,5 @@
+import Link from "next/link";
 import { CardNav } from "@/components/CardNav";
-import { Footer } from "@/components/Footer";
 import { OurLinks } from "@/components/OurLinks";
 import { CurrentProjects } from "@/components/CurrentProjects";
 import { RecentBlogs } from "@/components/RecentBlogs";
@@ -25,23 +25,22 @@ export default function Home() {
           {/* Section-to-section spacing lives entirely on this gap - individual
               sections below should not carry their own mt-* margins, or the
               rhythm goes uneven (see globals.css review notes). */}
-          <main className="flex flex-col items-center pt-4 pb-2 gap-6 sm:gap-8 max-w-[var(--content-max-width)] mx-auto">
+          <main className="section-stack flex flex-col items-center pt-2 pb-2 max-w-[var(--content-max-width)] mx-auto">
             <OurLinks />
             <section className="w-full max-w-[var(--content-max-width)]">
               <SoundCloudPlayer url={siteConfig.music.soundcloudUrl} />
-              <a
+              <Link
                 href="/music"
                 className="mt-2 inline-block text-xs font-medium"
                 style={{ color: "var(--fg-brand-primary)" }}
               >
                 listen everywhere &gt;
-              </a>
+              </Link>
             </section>
             <CurrentProjects />
             <RecentBlogs />
             <ContactToggle />
           </main>
-          <Footer />
         </div>
       </div>
     </div>

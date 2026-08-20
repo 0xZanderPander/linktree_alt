@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { gsap } from "gsap";
+import { ToggleFace } from "./ToggleFace";
 import { siteConfig, withBasePath } from "@/config/site.config";
 
 export function CardNav() {
@@ -122,8 +123,15 @@ export function CardNav() {
               height: 44,
             }}
           >
-            {/* Title bar row */}
-            <div className="relative flex items-center justify-between h-[44px] px-3">
+            {/* Title bar row - the WHOLE bar toggles, matching ProjectToggle
+                and ContactToggle. Previously only the small glyph box did. */}
+            <button
+              type="button"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isOpen}
+              className="relative w-full flex items-center justify-between h-[44px] px-3 text-left"
+            >
               {/* Window "title" - logo or wordmark */}
               <div className="flex items-center gap-2 min-w-0">
                 {branding.logo ? (
@@ -134,7 +142,7 @@ export function CardNav() {
                   />
                 ) : (
                   <span
-                    className="text-sm font-bold tracking-wide truncate"
+                    className="text-sm font-bold tracking-wide truncate toggle-title"
                     style={{ color: "var(--color-charcoal)" }}
                   >
                     {branding.logoAlt}
@@ -142,27 +150,9 @@ export function CardNav() {
                 )}
               </div>
 
-              {/* Toggle button - sits where a window's close control would be */}
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center justify-center w-[28px] h-[28px] flex-shrink-0 font-bold text-base leading-none"
-                style={{
-                  color: "var(--color-charcoal)",
-                  border: "2px solid var(--color-charcoal)",
-                  background: isOpen ? "var(--color-charcoal)" : "transparent",
-                }}
-                aria-label={isOpen ? "Close menu" : "Open menu"}
-                aria-expanded={isOpen}
-              >
-                <span
-                  style={{
-                    color: isOpen ? "var(--color-vanilla)" : "var(--color-charcoal)",
-                  }}
-                >
-                  {isOpen ? "X" : "<"}
-                </span>
-              </button>
-            </div>
+              {/* Decorative - the bar itself is the button */}
+              <ToggleFace isOpen={isOpen} />
+            </button>
 
             {/* Menu items */}
             <div

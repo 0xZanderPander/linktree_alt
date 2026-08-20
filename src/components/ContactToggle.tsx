@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ContactForm } from "./ContactForm";
+import { ToggleFace } from "./ToggleFace";
 import { siteConfig } from "@/config/site.config";
 
 /**
@@ -31,23 +32,12 @@ export function ContactToggle() {
             aria-controls="contact-toggle-panel"
           >
             <span
-              className="text-sm font-bold tracking-wide"
+              className="text-sm font-bold tracking-wide toggle-title"
               style={{ color: "var(--color-charcoal)" }}
             >
               {contact.heading}
             </span>
-            <span
-              className="flex items-center justify-center w-[28px] h-[28px] flex-shrink-0 font-bold text-base leading-none"
-              style={{
-                color: "var(--color-charcoal)",
-                border: "2px solid var(--color-charcoal)",
-                background: isOpen ? "var(--color-charcoal)" : "transparent",
-              }}
-            >
-              <span style={{ color: isOpen ? "var(--color-vanilla)" : "var(--color-charcoal)" }}>
-                {isOpen ? "X" : "<"}
-              </span>
-            </span>
+            <ToggleFace isOpen={isOpen} />
           </button>
 
           <div
@@ -60,12 +50,6 @@ export function ContactToggle() {
           >
             <div className="overflow-hidden">
               <div className="p-4">
-                <p
-                  className="text-xs mb-3"
-                  style={{ color: "var(--color-vanilla)", opacity: 0.7 }}
-                >
-                  {contact.intro}
-                </p>
                 <ContactForm />
               </div>
             </div>
