@@ -37,10 +37,6 @@ Everything below is content or accounts only you can supply. The code is wired u
 - `siteConfig.music.profileLinks` (Spotify/Apple Music/SoundCloud/Bandcamp) — your overall artist-profile URLs on each platform, shown as a "listen on" row on `/music`. Currently all `#`.
 - File: `src/config/site.config.ts` → `music.profileLinks`
 
-## 8. GitHub push
-- The redesign is built and verified locally (clean build + lint) but hasn't been pushed to your fork (`0xZanderPander/linktree-alternative`) yet.
-- Still need either: (a) a scoped push-capable token pasted in chat, or (b) you run the manual `git` steps I can give you. Let me know which you'd rather do and we'll finish the push once you're happy with the direction above.
-
 ---
 
 Nothing on this list blocks you from seeing/using the site — it's all placeholder-safe. Fill in whatever you have handy and send it over (or edit `site.config.ts` directly) and I'll fold it in.
