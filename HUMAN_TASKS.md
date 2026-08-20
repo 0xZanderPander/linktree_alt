@@ -13,10 +13,11 @@ Everything below is content or accounts only you can supply. The code is wired u
 - File: `src/config/site.config.ts` → `resources`
 
 ## 3. Social links / profile URLs
-- GitHub: already set to `https://github.com/0xZanderPander` ✓
-- Substack: your publication URL (currently `#`)
-- Instagram: your profile URL (currently `#`)
-- Website: currently pointing at `https://example.com` — either supply a real site URL, or swap this slot for YouTube later as you mentioned
+- GitHub: `https://github.com/0xZanderPander` ✓
+- Substack: `https://substack.com/@bratboymusic` ✓
+- Instagram: `https://www.instagram.com/brat_boy_music` ✓
+- Website: currently pointing at `https://example.com`, handle still shows `@handle` — either supply a real site URL, or swap this slot for YouTube later as you mentioned
+- Also placeholder: `branding.websiteUrl` (`https://example.com`), `branding.email` (`hello@example.com`), `branding.copyrightYear` (`2024`)
 - File: `src/config/site.config.ts` → `socialLinks`
 
 ## 4. Blog (Substack → Medium)

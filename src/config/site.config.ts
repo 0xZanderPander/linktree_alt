@@ -219,7 +219,7 @@ export const siteConfig: SiteConfig = {
       id: "github",
       platform: "github",
       title: "Github",
-      handle: "@handle",
+      handle: "@0xZanderPander",
       url: "https://github.com/0xZanderPander",
       icon: "github",
     },
@@ -227,16 +227,16 @@ export const siteConfig: SiteConfig = {
       id: "substack",
       platform: "substack",
       title: "Substack",
-      handle: "@handle",
-      url: "#", // TODO: your Substack publication URL
+      handle: "@bratboymusic",
+      url: "https://substack.com/@bratboymusic",
       icon: "substack",
     },
     {
       id: "instagram",
       platform: "instagram",
       title: "Insta",
-      handle: "@handle",
-      url: "#", // TODO: your Instagram profile URL
+      handle: "@brat_boy_music",
+      url: "https://www.instagram.com/brat_boy_music",
       icon: "instagram",
     },
     {
